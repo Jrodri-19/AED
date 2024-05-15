@@ -30,6 +30,35 @@ public:
 		}
 		
 	}
+	
+	void insertarEnPosicion(int valor, int posicion) {
+		if (posicion < 0) {
+			std::cout << "Posición no válida." << std::endl;
+			return;
+		}
+		
+		Nodo* nuevoNodo = new Nodo();
+		nuevoNodo->dato = valor;
+		
+		if (posicion == 0) {
+			nuevoNodo->siguiente = cabeza;
+			cabeza = nuevoNodo;
+			return;
+		}
+		
+		Nodo* actual = cabeza;
+		for (int i = 0; i < posicion - 1; ++i) {
+			if (actual == nullptr) {
+				std::cout << "Posición fuera de los límites de la lista." << std::endl;
+				delete nuevoNodo;
+				return;
+			}
+			actual = actual->siguiente;
+		}
+		
+		nuevoNodo->siguiente = actual->siguiente;
+		actual->siguiente = nuevoNodo;
+	}
 	void mostrar() {
 		Nodo* actual = cabeza;
 		while (actual != nullptr) {
@@ -51,14 +80,17 @@ public:
 };
 int main(int argc, char *argv[]) {
 	ListaEnlazada lista;
-	/*
+	
 	lista.insertarAlInicio(3);
 	lista.insertarAlInicio(2);
 	lista.insertarAlInicio(1);
-	*/
+	
+	/*
 	lista.insertarAlFinal(3);
 	lista.insertarAlFinal(2);
 	lista.insertarAlFinal(1);
+	*/
+	lista.insertarEnPosicion(5, 2);
 	lista.mostrar();
 	return 0;
 }
